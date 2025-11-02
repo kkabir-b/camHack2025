@@ -42,7 +42,7 @@ def extract_fft_tones_librosa(y, sr, start_time=0, duration=0.1, num_tones=10, a
     return freqs_list, amps_list
 
 
-def analyze_whole_audio_librosa(mp3_path, interval=0.1, num_tones=10, amp_threshold=0.1):
+def analyze_whole_audio_librosa(mp3_path, interval=0.1, num_tones=10, amp_threshold=0.05):
     """
     Analyze entire audio file and return transposed frequency & amplitude tracks
     with constant dimensions for all segments.
@@ -73,18 +73,17 @@ def gen_copy_paste(path,interval_length,num_tones,name): #name = vocals,drum,bas
     vol = f'v_'+'{' + name + '}'
     pitch = f'p_'+'{' + name + '}'
     
-    tot = ''
     freq,amp = analyze_whole_audio_librosa(path,interval=interval_length,num_tones=num_tones)
     n_amp = [[str(i) + r' \cdot ' + vol for i in j] for j in amp]
     n_freq = [[str(i) for i in j] for j in freq]
  
     print('The number of indices:',len(n_amp[0]))
+    tot = []
     for i,j in zip(n_freq,n_amp):
         fr = ", ".join(i)
         am = ", ".join(j)
-        tot += r'\operatorname{tone}\left(\left[' + str(fr) + r'\right][t],\left[' + str(am) + r'\right][t]\right)' + '\n'
+        tot.append(r'\operatorname{tone}\left(\left[' + str(fr) + r'\right][t],\left[' + str(am) + r'\right][t]\right)')
     return tot
-
-if __name__ == '__main__':
-    tot = gen_copy_paste(r'.\examples\example_audios\irisout.mp3',0.01,250,'vocals')
-    pyperclip.copy(str(tot))
+tot = gen_copy_paste(r'.\examples\example_audios\idol.mp3',0.025,400,'vocals')
+#print(tot)
+pyperclip.copy(str(tot))
