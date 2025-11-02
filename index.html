@@ -20,7 +20,8 @@
                 return;
             }
             
-            resetDesmos()
+            console.log(JSON.stringify(calculator.getState()));
+            resetDesmos();
             const file = fileInput.files[0];
             const formData = new FormData();
             formData.append('audio_file', file);
@@ -40,12 +41,28 @@
 
                 const data = await response.json();
                 
-                const expressions = data.latex_expressions.map((latexStr, index) => ({
-                    id: `tone_${index + 1}`,
-                    latex: latexStr
-                }));
+                // This will hold all our new expressions (folders and tones)
+                const allExpressions = [];
 
-                calculator.setExpressions(expressions);
+                // The server returns a 'tracks' object with keys like 'vocals', 'drums', etc.
+                for (const trackName in data.tracks) {
+                    // 1. Create a folder for the track
+                    allExpressions.push({
+                        id: `folder_${trackName}`,
+                        type: 'folder',
+                        title: trackName
+                    });
+
+                    // 2. Create the tone expressions and place them in the folder
+                    const toneExpressions = data.tracks[trackName].map((latexStr, index) => ({
+                        id: `${trackName}_tone_${index + 1}`,
+                        latex: latexStr,
+                        folderId: `folder_${trackName}` // This links the expression to the folder
+                    }));
+                    allExpressions.push(...toneExpressions);
+                }
+
+                calculator.setExpressions(allExpressions);
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while processing the audio.');

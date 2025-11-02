@@ -33,4 +33,4 @@ def AudioSeparation(inputFile, outputFolder):
         print(path)
 
 if __name__ == "__main__":
-    AudioSeparation("Monkeys-Spinning-Monkeys(chosic.com).mp3", "SeparatedTracks")
+    AudioSeparation("Monkeys-Spinning-Monkeys(chosic.com).mp3", "/tracks")
