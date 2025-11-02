@@ -2,3 +2,6 @@ scipy
 numpy
 librosa
 pyperclip
+audio-separator
+FFmpeg
+onnxruntime
