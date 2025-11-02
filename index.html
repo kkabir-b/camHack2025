@@ -19,7 +19,6 @@
                 alert('Please select an MP3 file.');
                 return;
             }
-            
             resetDesmos()
             const file = fileInput.files[0];
             const formData = new FormData();
@@ -55,7 +54,7 @@
             }
         }
         function resetDesmos() {
-            calculator.setState({"version":11,"randomSeed":"6a2d3bf7e1315dc2adf403a65882f92b","graph":{"viewport":{"xmin":-9.242724952637445,"ymin":-5.305595401031139,"xmax":7.431404906918839,"ymax":6.238032963277069},"__v12ViewportLatexStash":{"xmin":"-9.242724952637445","xmax":"7.431404906918839","ymin":"-5.305595401031139","ymax":"6.238032963277069"}},"expressions":{"list":[{"type":"expression","id":"fps","color":"#2d70b3","latex":"t=0","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"600"}},{"type":"expression","id":"2","color":"#2d70b3","latex":"p=-7.2","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"1","step":"1"}},{"type":"expression","id":"vocal","color":"#c74440","latex":"v_{vocals} = 1","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"1"}}],"ticker":{"handlerLatex":"\\left\\{p=1:\\left\\{t<600:t\\to t+\\frac{\\operatorname{dt}}{50},p\\to0\\right\\},t\\to0\\right\\}","minStepLatex":"50","open":true}},"includeFunctionParametersInRandomSeed":true,"doNotMigrateMovablePointStyle":true})
+            calculator.setState({"version":11,"randomSeed":"6a2d3bf7e1315dc2adf403a65882f92b","graph":{"viewport":{"xmin":-9.242724952637445,"ymin":-5.305595401031139,"xmax":7.431404906918839,"ymax":6.238032963277069},"__v12ViewportLatexStash":{"xmin":"-9.242724952637445","xmax":"7.431404906918839","ymin":"-5.305595401031139","ymax":"6.238032963277069"}},"expressions":{"list":[{"type":"expression","id":"fps","color":"#2d70b3","latex":"t=0","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"600"}},{"type":"expression","id":"2","color":"#2d70b3","latex":"p=-7.2","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"1","step":"1"}},{"type":"expression","id":"vocal","color":"#c74440","latex":"v_{vocals} = 1","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"1"}},{"type":"expression","id":"drums","color":"#c74440","latex":"v_{drums} = 1","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"1"}},{"type":"expression","id":"bass","color":"#c74440","latex":"v_{bass} = 1","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"1"}},{"type":"expression","id":"other","color":"#c74440","latex":"v_{other} = 1","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"1"}}],"ticker":{"handlerLatex":"\\left\\{p=1:\\left\\{t<600:t\\to t+\\frac{\\operatorname{dt}}{50},p\\to0\\right\\},t\\to0\\right\\}","minStepLatex":"50","open":true}},"includeFunctionParametersInRandomSeed":true,"doNotMigrateMovablePointStyle":true})
             calculator.setExpressions([
             ]);
         }
