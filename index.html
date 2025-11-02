@@ -4,34 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DesMusic</title>
-    
+    <link rel="stylesheet" href="style.css" type="text/css">
     <script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=0ff38da4a13b42659a6df0455f0be2bf"></script>
 
     <script>
         // global calculator
         var calculator;
 
-        function handleDesmosify() {
+        async function handleDesmosify() {
             const fileInput = document.getElementById('audio-file');
+            const button = document.querySelector('button');
+
             if (fileInput.files.length === 0) {
                 alert('Please select an MP3 file.');
                 return;
             }
         
             const file = fileInput.files[0];
-            console.log("File:", file.name);
-            console.log(JSON.stringify(calculator.getState()));
-            calculator.setExpression({ id: 'graph1', latex: 'y=\\sin(x)' });
-            
+            const formData = new FormData();
+            formData.append('audio_file', file);
+
+            button.disabled = true;
+            button.textContent = 'Processing...';
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/desmosify', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                
+                calculator.setExpression({ id: 'graph1', latex: data.latex });
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while processing the audio.');
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Desmosify!';
+            }
         }
     </script>
 </head>
 <body>
-    <h1>DesMix</h1>
-    <label for="audio-file">Select an mp3 file to graph:</label> <br> <input type="file" id="audio-file" accept=".mp3">
+    <div id="topbar">
+        <h1>DesMix</h1>
+    </div> 
 
-    <br>
-    <button onclick="handleDesmosify()">Desmosify!</button>
+    <div id="optionbox">
+        <label for="audio-file">Select an mp3 file to graph:</label> <br> <input type="file" id="audio-file" accept=".mp3">
+    
+        <br>
+        <button onclick="handleDesmosify()">Desmosify!</button>
+        <br>        
+    </div>
 
     <div id="calculator" style="width: 1800px; height: 900px;"></div>
 

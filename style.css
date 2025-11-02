@@ -1,0 +1,18 @@
+body {
+    font-family: "Noto Sans Mono";
+    text-align: center;
+}
+
+h1 {
+    color:aliceblue
+}
+/* Add a black background color to the top navigation */
+#topbar {
+  background-color: rgb(148, 138, 167);
+  overflow: hidden;
+}
+
+#optionbox {
+    color:aliceblue;
+    background-color: rgb(144, 125, 153);
+}
