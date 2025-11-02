@@ -84,6 +84,6 @@ def gen_copy_paste(path,interval_length,num_tones,name): #name = vocals,drum,bas
         am = ", ".join(j)
         tot.append(r'\operatorname{tone}\left(\left[' + str(fr) + r'\right][t],\left[' + str(am) + r'\right][t]\right)')
     return tot
-tot = gen_copy_paste(r'.\examples\example_audios\idol.mp3',0.025,400,'vocals')
-#print(tot)
-pyperclip.copy(str(tot))
+# tot = gen_copy_paste(r'.\examples\example_audios\idol.mp3',0.025,400,'vocals')
+# #print(tot)
+# pyperclip.copy(str(tot))

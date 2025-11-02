@@ -19,7 +19,8 @@
                 alert('Please select an MP3 file.');
                 return;
             }
-        
+            
+            resetDesmos()
             const file = fileInput.files[0];
             const formData = new FormData();
             formData.append('audio_file', file);
@@ -39,7 +40,12 @@
 
                 const data = await response.json();
                 
-                calculator.setExpression({ id: 'graph1', latex: data.latex });
+                const expressions = data.latex_expressions.map((latexStr, index) => ({
+                    id: `tone_${index + 1}`,
+                    latex: latexStr
+                }));
+
+                calculator.setExpressions(expressions);
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while processing the audio.');
@@ -47,6 +53,11 @@
                 button.disabled = false;
                 button.textContent = 'Desmosify!';
             }
+        }
+        function resetDesmos() {
+            calculator.setState({"version":11,"randomSeed":"6a2d3bf7e1315dc2adf403a65882f92b","graph":{"viewport":{"xmin":-9.242724952637445,"ymin":-5.305595401031139,"xmax":7.431404906918839,"ymax":6.238032963277069},"__v12ViewportLatexStash":{"xmin":"-9.242724952637445","xmax":"7.431404906918839","ymin":"-5.305595401031139","ymax":"6.238032963277069"}},"expressions":{"list":[{"type":"expression","id":"fps","color":"#2d70b3","latex":"t=0","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"600"}},{"type":"expression","id":"2","color":"#2d70b3","latex":"p=-7.2","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"1","step":"1"}},{"type":"expression","id":"vocal","color":"#c74440","latex":"v_{vocals} = 1","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"1"}}],"ticker":{"handlerLatex":"\\left\\{p=1:\\left\\{t<600:t\\to t+\\frac{\\operatorname{dt}}{50},p\\to0\\right\\},t\\to0\\right\\}","minStepLatex":"50","open":true}},"includeFunctionParametersInRandomSeed":true,"doNotMigrateMovablePointStyle":true})
+            calculator.setExpressions([
+            ]);
         }
     </script>
 </head>
@@ -56,6 +67,9 @@
     </div> 
 
     <div id="optionbox">
+        <p>Usage: Set p to 1, unmute audio and turn the ticker on to play music.<br>
+        Adjust the volumes of vocals, drums, bass and other to your liking!
+        </p>
         <label for="audio-file">Select an mp3 file to graph:</label> <br> <input type="file" id="audio-file" accept=".mp3">
     
         <br>
@@ -68,9 +82,7 @@
     <script>
         const elt = document.getElementById('calculator');
         calculator = Desmos.GraphingCalculator(elt, [{actions:true}]);
-        calculator.setState({"version":11,"randomSeed":"6a2d3bf7e1315dc2adf403a65882f92b","graph":{"viewport":{"xmin":-10,"ymin":-6.923076923076923,"xmax":10,"ymax":6.923076923076923},"__v12ViewportLatexStash":{"xmin":"-10","xmax":"10","ymin":"-6.923076923076923","ymax":"6.923076923076923"}},"expressions":{"list":[{"type":"expression","id":"fps","color":"#2d70b3","latex":"t=0","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"211"}}],"ticker":{"handlerLatex":"t\\to t+\\ \\frac{\\operatorname{dt}}{50}","minStepLatex":"50","open":true}},"includeFunctionParametersInRandomSeed":true,"doNotMigrateMovablePointStyle":true})
-        calculator.setExpressions([
-        ]);
+        resetDesmos();
     </script>
 </body>
 </html>

@@ -28,8 +28,8 @@ def desmosify_audio():
 
         try:
             # Call the potentially long-running/error-prone function
-            latex_string = gen_copy_paste(filepath, interval_length=0.1, num_tones=10, name='vocals')
-            return jsonify({"latex": latex_string})
+            latex_strings = gen_copy_paste(filepath, interval_length=0.05, num_tones=250, name='vocals')
+            return jsonify({"latex_expressions": latex_strings})
         except Exception as e:
             # Log the full error to the server console for debugging
             print(f"An error occurred during audio processing: {e}")
