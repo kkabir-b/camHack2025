@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesMusic</title>
+    
+    <script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=0ff38da4a13b42659a6df0455f0be2bf"></script>
+
+    <script>
+        // global calculator
+        var calculator;
+
+        function handleDesmosify() {
+            const fileInput = document.getElementById('audio-file');
+            if (fileInput.files.length === 0) {
+                alert('Please select an MP3 file.');
+                return;
+            }
+        
+            const file = fileInput.files[0];
+            console.log("File:", file.name);
+            console.log(JSON.stringify(calculator.getState()));
+            calculator.setExpression({ id: 'graph1', latex: 'y=\\sin(x)' });
+            
+        }
+    </script>
+</head>
+<body>
+    <h1>DesMix</h1>
+    <label for="audio-file">Select an mp3 file to graph:</label> <br> <input type="file" id="audio-file" accept=".mp3">
+
+    <br>
+    <button onclick="handleDesmosify()">Desmosify!</button>
+
+    <div id="calculator" style="width: 1800px; height: 900px;"></div>
+
+    <script>
+        const elt = document.getElementById('calculator');
+        calculator = Desmos.GraphingCalculator(elt, [{actions:true}]);
+        calculator.setState({"version":11,"randomSeed":"6a2d3bf7e1315dc2adf403a65882f92b","graph":{"viewport":{"xmin":-10,"ymin":-6.923076923076923,"xmax":10,"ymax":6.923076923076923},"__v12ViewportLatexStash":{"xmin":"-10","xmax":"10","ymin":"-6.923076923076923","ymax":"6.923076923076923"}},"expressions":{"list":[{"type":"expression","id":"fps","color":"#2d70b3","latex":"t=0","slider":{"hardMin":true,"hardMax":true,"min":"0","max":"211"}}],"ticker":{"handlerLatex":"t\\to t+\\ \\frac{\\operatorname{dt}}{50}","minStepLatex":"50","open":true}},"includeFunctionParametersInRandomSeed":true,"doNotMigrateMovablePointStyle":true})
+        calculator.setExpressions([
+        ]);
+    </script>
+</body>
+</html>
