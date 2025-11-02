@@ -4,7 +4,7 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from tone_generator import gen_copy_paste
 import traceback
-from AudioSeparate import AudioSeparation
+# from AudioSeparate import AudioSeparation
 
 app = Flask(__name__)
 CORS(app)
@@ -28,12 +28,12 @@ def desmosify_audio():
         file.save(filepath)
 
         try:
-            AudioSeparation(filepath, "./tracks")
-            vocals_strings = gen_copy_paste("./tracks/vocals.mp3", interval_length=0.05, num_tones=250, name='vocals')
-            bass_strings = gen_copy_paste("./tracks/bass.mp3", interval_length=0.05, num_tones=250, name='bass')
-            drums_strings = gen_copy_paste("./tracks/drums.mp3", interval_length=0.05, num_tones=250, name='drums')
-            other_strings = gen_copy_paste("./tracks/other.mp3", interval_length=0.05, num_tones=250, name='other')
-            latex_strings = vocals_strings + bass_strings + drums_strings + other_strings
+            # AudioSeparation(filepath, "./tracks")
+            vocals_strings = gen_copy_paste(filepath, interval_length=0.05, num_tones=250, name='vocals')
+            # bass_strings = gen_copy_paste("./tracks/bass.mp3", interval_length=0.05, num_tones=250, name='bass')
+            # drums_strings = gen_copy_paste("./tracks/drums.mp3", interval_length=0.05, num_tones=250, name='drums')
+            # other_strings = gen_copy_paste("./tracks/other.mp3", interval_length=0.05, num_tones=250, name='other')
+            latex_strings = vocals_strings
             return jsonify({"latex_expressions": latex_strings})
         except Exception as e:
             print(f"An error occurred during audio processing: {e}")
